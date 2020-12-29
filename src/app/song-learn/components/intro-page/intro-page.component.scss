@@ -1,0 +1,22 @@
+.root {
+  max-width: 700px;
+  font-size: 16px;
+  line-height: 1.4em;
+  padding-top: 20px;
+}
+
+.point + .point {
+  margin-top: 40px;
+}
+
+.question {
+  font-weight: 500;
+}
+
+.answer {
+  margin-top: 5px;
+
+  b {
+    font-weight: 500;
+  }
+}

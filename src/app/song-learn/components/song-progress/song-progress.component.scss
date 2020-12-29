@@ -1,0 +1,90 @@
+@import "vars";
+
+.progress {
+  margin-top: 10px;
+}
+
+.progress-bar {
+  background-color: #c5cae9;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-bar-state {
+  background-color: #3f51b5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.step-select {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-control-icon {
+  font-size: 18px;
+}
+
+.step-input {
+  padding: 5px;
+  margin: 0 15px;
+  width: 70px;
+  font-size: 14px;
+}
+
+.speech {
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.current-speech {
+  padding-top: 10px;
+  margin-top: 5px;
+  border-top: 1px dashed #ccc;
+}
+
+.text-control {
+  display: inline-block;
+  background-color: #ebedf9;
+  padding: 1px 4px;
+  border-radius: 2px;
+  min-width: 60px;
+}
+
+.progress-bar-label {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2px 5px;
+  position: relative;
+}
+
+.controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.control-button {
+  min-width: 100px;
+
+  @include isMobile() {
+    width: 100%;
+  }
+}
+
+.config {
+  margin: 18px 0;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}

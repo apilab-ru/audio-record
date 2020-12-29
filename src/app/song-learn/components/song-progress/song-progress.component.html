@@ -1,0 +1,49 @@
+<div class="progress">
+  <div class="progress-bar">
+    <div class="progress-bar-label">
+      {{ currentStep$ | async }} / {{ currentSong.original.length }}
+    </div>
+    <div class="progress-bar-state" [style.width.%]="progressPercents$ | async"></div>
+  </div>
+
+  <div class="step-select">
+    <button mat-mini-fab color="primary" class="step-control-icon" (click)="decreaseStep()">-</button>
+    <input class="step-input" type="number" [ngModel]="currentStep$ | async" (ngModelChange)="onUpdateStep($event)">
+    <button mat-mini-fab color="primary" class="step-control-icon" (click)="increaseStep()">+</button>
+  </div>
+
+  <div class="speech">
+    <div class="current-line" *ngIf="currentLine$ | async">
+      <span class="text-control">Say:</span> {{ currentLine$ | async }}
+    </div>
+    <div class="current-speech">
+      <span class="text-control">You say:</span> {{ currentSpeech$ | async }}
+    </div>
+  </div>
+
+  <div [formGroup]="formConfig" class="config">
+    <mat-checkbox class="checkbox" formControlName="sayHitPercent">Say hit percent</mat-checkbox>
+    <mat-checkbox class="checkbox" formControlName="sayIntro">Say intro</mat-checkbox>
+  </div>
+
+  <div class="controls">
+    <button
+      *ngIf="!(isProgress$ | async)"
+      class="control-button"
+      mat-raised-button
+      color="primary"
+      (click)="start()"
+    >
+      Play
+    </button>
+    <button
+      *ngIf="(isProgress$ | async)"
+      class="control-button"
+      mat-raised-button
+      color="accent"
+      (click)="pause()"
+    >
+      Pause
+    </button>
+  </div>
+</div>

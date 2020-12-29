@@ -1,0 +1,23 @@
+<mat-form-field class="song-field">
+  <mat-label>Song</mat-label>
+  <mat-select [ngModel]="currentSongId$ | async" (ngModelChange)="selectSong($event)">
+    <mat-option *ngFor="let song of songs$ | async" [value]="song.id">
+      {{ song.name }} / {{ song.artist }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<sl-song-progress
+  *ngIf="currentSong$ | async"
+  [currentSong]="currentSong$ | async"
+></sl-song-progress>
+
+<div class="link-box">
+  <a
+    class="open-song-link"
+    target="_blank"
+    [href]="currentSongLink$ | async"
+  >
+    Open song
+  </a>
+</div>

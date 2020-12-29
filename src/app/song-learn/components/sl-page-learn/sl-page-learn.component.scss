@@ -1,0 +1,26 @@
+@import "vars";
+
+:host {
+  padding-top: 20px;
+  display: block;
+  max-width: 300px;
+
+  @include isMobile() {
+    max-width: 450px;
+  }
+}
+
+.song-field {
+  width: 100%;
+}
+
+.link-box {
+  display: flex;
+  justify-content: center;
+}
+
+.open-song-link {
+  margin-top: 20px;
+  cursor: pointer;
+  display: inline-block;
+}

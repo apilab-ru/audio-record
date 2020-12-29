@@ -1,0 +1,48 @@
+@import "vars";
+
+.root {
+  max-width: 866px;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 22px;
+
+  @include isMobile() {
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+  }
+}
+
+.item {
+  width: 200px;
+  position: relative;
+  cursor: pointer;
+
+  @include isMobile() {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+.album {
+  width: 100%;
+  border-radius: 5px;
+
+  @include isMobile() {
+    width: 40px;
+  }
+}
+
+.info {
+  @include isMobile() {
+    margin-left: 10px;
+  }
+}
+
+.search-field {
+  width: 420px;
+  max-width: 100%;
+}

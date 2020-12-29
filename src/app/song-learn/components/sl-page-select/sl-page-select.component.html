@@ -1,0 +1,28 @@
+<div class="root">
+  <mat-form-field class="search-field">
+    <mat-label>Search song by title or artist</mat-label>
+    <input matInput type="text" [ngModel]="search$ | async" (ngModelChange)="onFilterChange($event)">
+    <button
+      *ngIf="search$ | async"
+      mat-button matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="onFilterChange('')"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <div class="list">
+    <div
+      *ngFor="let item of songs$ | async"
+      [routerLink]="['/learn', item.id]"
+      class="item"
+    >
+      <img class="album" src="./assets/songs/album/jingle-bell.jpg">
+      <div class="info">
+        <div class="name">{{ item.name }}</div>
+        <div class="artist">{{ item.artist }}</div>
+      </div>
+    </div>
+  </div>
+</div>
