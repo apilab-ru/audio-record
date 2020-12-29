@@ -1,7 +1,20 @@
 @import "vars";
 
 .root {
+  display: flex;
+
+  @include isMobile() {
+    display: block;
+  }
+}
+
+.search-box {
   max-width: 866px;
+}
+
+.song-box {
+  margin: 10px 0 0 100px;
+  flex: 1;
 }
 
 .list {
@@ -19,11 +32,21 @@
   width: 200px;
   position: relative;
   cursor: pointer;
+  outline: none;
+  transition: 0.3s;
+  border: 3px solid rgba(0, 0, 0, 0);
 
   @include isMobile() {
     display: flex;
     align-items: center;
     width: 100%;
+  }
+
+  &.-selected {
+    background: #042e64;
+    border-radius: 5px;
+    color: #fff;
+    border: 3px solid #042e64;
   }
 }
 

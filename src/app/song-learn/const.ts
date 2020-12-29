@@ -11,6 +11,6 @@ export enum SpeechSpeed {
 
 export const AUDIO_BEEP = './assets/sounds/beep.mp3';
 
-export const ALLOWABLE_ERROR_PERCENTS = 15;
+export const ALLOWABLE_ERROR_PERCENTS = 17;
 export const ALLOWABLE_ERROR_MIN_COUNT = 2;
 

@@ -16,7 +16,6 @@ export class SlPageLearnComponent implements OnInit {
 
   currentSongId$: Observable<number | null>;
   currentSong$: Observable<Song | null>;
-  currentSongLink$: Observable<string>;
 
   constructor(
     private songsListService: SongsListService,
@@ -33,22 +32,6 @@ export class SlPageLearnComponent implements OnInit {
     this.currentSong$ = this.currentSongId$.pipe(
       switchMap(id => !id ? of(null) : this.songsListService.getSong(id)),
     );
-    this.currentSongLink$ = this.currentSong$.pipe(
-      map(song => `https://music.yandex.ru/search?text=` +  encodeURIComponent(
-        song.artist + ' ' + song.name
-      ))
-    );
-
-    // @ts-ignore
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: 'Podcast Episode Title',
-      artist: 'Podcast Host',
-      album: 'Podcast Name',
-      artwork: [{ src: './assets/icons/icon-72x72.png' }],
-    });
-
-    // @ts-ignore
-    navigator.mediaSession.playbackState = 'playing';
   }
 
   selectSong(songId: number): void {

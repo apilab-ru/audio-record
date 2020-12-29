@@ -11,13 +11,3 @@
   *ngIf="currentSong$ | async"
   [currentSong]="currentSong$ | async"
 ></sl-song-progress>
-
-<div class="link-box">
-  <a
-    class="open-song-link"
-    target="_blank"
-    [href]="currentSongLink$ | async"
-  >
-    Open song
-  </a>
-</div>

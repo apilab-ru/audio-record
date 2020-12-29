@@ -88,3 +88,14 @@
   border-bottom: 1px solid #ccc;
   padding: 10px 0;
 }
+
+.link-box {
+  display: flex;
+  justify-content: center;
+}
+
+.open-song-link {
+  margin-top: 20px;
+  cursor: pointer;
+  display: inline-block;
+}

@@ -6,6 +6,7 @@ import { AudioControlService } from '../../services/audio-control.service';
 import { LyricsService } from '../../services/lyrics.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ToastrService } from 'ngx-toastr';
 
 @UntilDestroy()
 @Component({
@@ -23,6 +24,7 @@ export class SongProgressComponent implements OnInit, OnChanges, OnDestroy {
   currentSpeech$: Observable<string>;
   progressPercents$: Observable<number>;
   formConfig: FormGroup;
+  currentSongLink: string;
 
   private currentSong$ = new ReplaySubject<Song>(1);
 
@@ -64,6 +66,10 @@ export class SongProgressComponent implements OnInit, OnChanges, OnDestroy {
     if (changes.currentSong) {
       this.currentSong$.next(this.currentSong);
       this.lyricsService.setSong(this.currentSong);
+
+      this.currentSongLink = `https://music.yandex.ru/search?text=` +  encodeURIComponent(
+        this.currentSong.artist + ' ' + this.currentSong.name
+      );
     }
   }
 

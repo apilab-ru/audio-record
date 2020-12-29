@@ -1,28 +1,42 @@
 <div class="root">
-  <mat-form-field class="search-field">
-    <mat-label>Search song by title or artist</mat-label>
-    <input matInput type="text" [ngModel]="search$ | async" (ngModelChange)="onFilterChange($event)">
-    <button
-      *ngIf="search$ | async"
-      mat-button matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="onFilterChange('')"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-  <div class="list">
-    <div
-      *ngFor="let item of songs$ | async"
-      [routerLink]="['/learn', item.id]"
-      class="item"
-    >
-      <img class="album" [src]="'./assets/songs/album/' + item.cover">
-      <div class="info">
-        <div class="name">{{ item.name }}</div>
-        <div class="artist">{{ item.artist }}</div>
+  <div class="search-box">
+    <mat-form-field class="search-field">
+      <mat-label>Search song by title or artist</mat-label>
+      <input matInput type="text" [ngModel]="search$ | async" (ngModelChange)="onFilterChange($event)">
+      <button
+        *ngIf="search$ | async"
+        mat-button matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="onFilterChange('')"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="list">
+      <div
+        *ngFor="let item of songs$ | async"
+        (click)="selectSong(item)"
+        class="item"
+        [class.-selected]="(currentSong$ | async)?.id === item.id"
+      >
+        <img class="album" [src]="'./assets/songs/album/' + item.cover">
+        <div class="info">
+          <div class="name">{{ item.name }}</div>
+          <div class="artist">{{ item.artist }}</div>
+        </div>
       </div>
     </div>
   </div>
+  <div *ngIf="currentSong$ | async as currentSong" class="song-box">
+    <div class="info">
+      <div class="name">{{ currentSong.name }}</div>
+      <div class="artist">{{ currentSong.artist }}</div>
+    </div>
+    <sl-song-progress
+
+      [currentSong]="currentSong"
+    ></sl-song-progress>
+  </div>
 </div>
+

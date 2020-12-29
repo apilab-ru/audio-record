@@ -9,6 +9,7 @@ import { Song } from '../interface';
 import { getCompleteObservable, runInZone } from '../helpers';
 import { levenshtein } from './helpers';
 import { COMMAND_SKIP } from '../consts/commands';
+import { ToastrService } from 'ngx-toastr';
 
 interface LyricsConfig {
   sayHitPercent: boolean;
@@ -40,6 +41,7 @@ export class LyricsService {
     private recognitionService: RecognitionService,
     private audioControlService: AudioControlService,
     private ngZone: NgZone,
+    private toastr: ToastrService,
   ) {
     this.currentSpeech$ = this.recognitionService.currentSpeech$;
     this.currentStep$ = this.currentStep.asObservable();
@@ -126,7 +128,7 @@ export class LyricsService {
           Math.ceil(line.length * this.allowableErrorPercents / 100),
           this.allowableErrorMinCount,
         );
-        console.log('diff', diff, allowable);
+
         if (COMMAND_SKIP === speech) {
           return this.speechService.say(`You skip step ${step}`).pipe(
             map(() => this.currentStep.next(step + 1)),
@@ -136,6 +138,10 @@ export class LyricsService {
         if (diff > allowable) {
           return this.checkAndTray(song, step, tryNumber + 1);
         } else {
+
+          const score = Math.ceil(((allowable + 1) - diff) / (allowable + 1) * 10);
+          this.toastr.success('Success! You score: ' + score);
+
           let sayComplete$: Observable<void>;
           if (this.config.sayHitPercent) {
             const percent = Math.ceil((1 - +(diff / line.length).toFixed(2)) * 100);
