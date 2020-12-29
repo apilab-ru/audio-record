@@ -3,6 +3,7 @@ import { Route } from '@angular/router';
 export interface Song {
   id: number;
   name: string;
+  cover: string;
   artist: string;
   original: string[];
   translate: string[];

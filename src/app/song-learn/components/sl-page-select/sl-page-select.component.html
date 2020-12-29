@@ -18,7 +18,7 @@
       [routerLink]="['/learn', item.id]"
       class="item"
     >
-      <img class="album" src="./assets/songs/album/jingle-bell.jpg">
+      <img class="album" [src]="'./assets/songs/album/' + item.cover">
       <div class="info">
         <div class="name">{{ item.name }}</div>
         <div class="artist">{{ item.artist }}</div>

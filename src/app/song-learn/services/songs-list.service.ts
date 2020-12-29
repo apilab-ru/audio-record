@@ -16,10 +16,11 @@ export class SongsListService {
     this.songs$ = this.loadSongs().pipe(shareReplay(1));
   }
 
-  getListByFilter(search: string): Observable<Song[]> {
+  getListByFilter(input: string): Observable<Song[]> {
+    const search = input.toLowerCase();
     return this.songs$.pipe(
       map(list => !search ? list : list.filter(item => {
-        return item.name.includes(search) || item.artist.includes(search)
+        return item.name.toLowerCase().includes(search) || item.artist.toLowerCase().includes(search);
       }))
     );
   }
