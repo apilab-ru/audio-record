@@ -75,6 +75,10 @@
 .control-button {
   min-width: 100px;
 
+  &.-skip {
+    margin-left: 20px;
+  }
+
   @include isMobile() {
     width: 100%;
   }

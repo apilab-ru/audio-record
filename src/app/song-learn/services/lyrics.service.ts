@@ -61,6 +61,7 @@ export class LyricsService {
   }
 
   setStep(step: number): void {
+    this.speechService.stop();
     this.currentStep.next(step);
   }
 
@@ -82,6 +83,15 @@ export class LyricsService {
     this.currentSong$.next(song);
     this.currentStep.next(1);
     this.isProgress.next(false);
+  }
+
+  skip(): void {
+    if (this.recognitionService.isRecognizing) {
+      this.recognitionService.stop();
+      this.increaseStep();
+    } else {
+      this.speechService.stop();
+    }
   }
 
   private init(): void {
@@ -136,15 +146,17 @@ export class LyricsService {
         }
 
         if (diff > allowable) {
+          this.toastr.error(`Try again, errors: ${diff} / ${allowable} `);
           return this.checkAndTray(song, step, tryNumber + 1);
         } else {
-
-          const score = Math.ceil(((allowable + 1) - diff) / (allowable + 1) * 10);
-          this.toastr.success('Success! You score: ' + score);
+          const percent = Math.ceil((1 - +(diff / line.length).toFixed(2)) * 100);
+          const score = Math.ceil(percent / 10);
+          this.ngZone.run(() => {
+            this.toastr.success('Success! You score: ' + score);
+          });
 
           let sayComplete$: Observable<void>;
           if (this.config.sayHitPercent) {
-            const percent = Math.ceil((1 - +(diff / line.length).toFixed(2)) * 100);
             sayComplete$ = this.speechService.say(`Hit in ${percent} percent`);
           } else {
             sayComplete$ = getCompleteObservable();
@@ -160,7 +172,7 @@ export class LyricsService {
   }
 
   private clearLine(line: string): string {
-    return line.replace(/([^A-Za-z\s']*)/g, '');
+    return line.replace(/([^A-Za-z\s']*)/g, '').trim();
   }
 
 }

@@ -6,7 +6,7 @@ import { AudioControlService } from '../../services/audio-control.service';
 import { LyricsService } from '../../services/lyrics.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ToastrService } from 'ngx-toastr';
+import { SpeechService } from '../../services/speech.service';
 
 @UntilDestroy()
 @Component({
@@ -31,6 +31,7 @@ export class SongProgressComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private audioControlService: AudioControlService,
     private lyricsService: LyricsService,
+    private speechService: SpeechService,
     private fb: FormBuilder,
   ) {
   }
@@ -89,11 +90,17 @@ export class SongProgressComponent implements OnInit, OnChanges, OnDestroy {
     this.lyricsService.stop();
   }
 
+  skip(): void {
+    this.lyricsService.skip();
+  }
+
   increaseStep(): void {
+    this.speechService.stop();
     this.lyricsService.increaseStep();
   }
 
   decreaseStep(): void {
+    this.speechService.stop();
     this.lyricsService.decreaseStep();
   }
 }

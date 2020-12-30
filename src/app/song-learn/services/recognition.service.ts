@@ -16,9 +16,9 @@ function isMobile(): boolean {
 })
 export class RecognitionService {
   public listening$: Observable<string>;
+  public isRecognizing: boolean;
 
   private recognition: SpeechRecognition;
-  private isRecognizing: boolean;
   private transcript: string;
   private currentSpeech = new BehaviorSubject<string | null>(null);
 
